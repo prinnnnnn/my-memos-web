@@ -1,0 +1,679 @@
+openapi: 3.0.3
+info:
+  title: Personal Productivity API
+  version: 0.1.0
+servers:
+  - url: http://localhost:8081
+
+paths:
+  /memos:
+    get:
+      summary: List memos
+      description: Retrieve a list of memos with optional filtering and sorting.
+      operationId: listMemos
+      tags:
+        - memos
+      parameters:
+        - $ref: "#/components/parameters/TagsParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        '200':
+          $ref: "#/components/responses/MemosResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+    post:
+      summary: Create memo
+      description: Create a new memo.
+      operationId: createMemo
+      tags:
+        - memos
+      requestBody:
+        $ref: "#/components/requestBodies/CreateMemoRequest"
+      responses:
+        '201':
+          $ref: "#/components/responses/CreateMemoResponse"
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /learnings/area:
+    get:
+      summary: List learning areas
+      description: Retrieve a list of learning areas.
+      operationId: GetLearningAreas
+      tags:
+        - learnings
+      responses:
+        '200':
+          $ref: "#/components/responses/GetLearningAreasResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+    post:
+      summary: Create new learning area
+      description: Create a new learning area.
+      operationId: CreateLearningArea
+      tags:
+        - learnings
+      requestBody:
+        $ref: "#/components/requestBodies/CreateLearningAreaRequest"
+      responses:
+        '201':
+          $ref: "#/components/responses/CreateLearningAreaResponse"
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /learnings/items:
+    post:
+      summary: Create new learning item
+      description: Create a new learning item.
+      operationId: CreateLearningItem
+      tags:
+        - learnings
+      requestBody:
+        $ref: "#/components/requestBodies/CreateLearningItemRequest"
+      responses:
+        '201':
+          $ref: "#/components/responses/CreateLearningItemResponse"
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /learnings/area/{areaId}/items:
+    get:
+      summary: List learning items by area
+      description: Retrieve a list of learning items for a specific learning area.
+      operationId: GetLearningItemsByArea
+      tags:
+        - learnings
+      parameters:
+        - name: areaId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        '200':
+          $ref: "#/components/responses/GetLearningItemResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /learnings/area/{areaId}:
+    get:
+      summary: Get learning area details
+      description: Retrieve details of a specific learning area.
+      operationId: GetLearningAreaById
+      tags:
+        - learnings
+      parameters:
+        - name: areaId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: "#/components/responses/GetLearningAreaResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /learnings/item/{id}/start:
+    patch:
+      summary: Start a learning item
+      description: Mark a learning item as started.
+      operationId: StartLearningItem
+      tags:
+        - learnings
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        '204':
+          description: Learning item successfully started
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /learnings/item/{id}/complete:
+    patch:
+      summary: Complete a learning item
+      description: Mark a learning item as completed.
+      operationId: CompleteLearningItem
+      tags:
+        - learnings
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        '204':
+          description: Learning item successfully completed
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /tasks:
+    get:
+      summary: List tasks
+      description: Retrieve a list of tasks with optional filtering and sorting.
+      operationId: GetTasks
+      tags:
+        - tasks
+      parameters:
+        - $ref: "#/components/parameters/TagsParam"
+        - $ref: "#/components/parameters/StartDateParam"
+        - $ref: "#/components/parameters/EndDateParam"
+      responses:
+        '200':
+          $ref: "#/components/responses/GetTasksResponse"
+        '404':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+    post:
+      summary: Create task
+      description: Create a new task.
+      operationId: CreateTask
+      tags:
+        - tasks
+      requestBody:
+        $ref: "#/components/requestBodies/CreateTaskRequest"
+      responses:
+        '201':
+          $ref: "#/components/responses/CreateTaskResponse"
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /tasks/{id}/start:
+    patch:
+      summary: Start a task
+      description: Mark a task as started.
+      operationId: StartTask
+      tags:
+        - tasks
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        '204':
+          description: Task successfully started
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+  /tasks/{id}/complete:
+    patch:
+      summary: Complete a task
+      description: Mark a task as completed.
+      operationId: CompleteTask
+      tags:
+        - tasks
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        '204':
+          description: Task successfully completed
+        '400':
+          $ref: "#/components/responses/ErrorResponse"
+        '500':
+          $ref: "#/components/responses/ErrorResponse"
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    TagsParam:
+      name: tag
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+    Status:
+      name: status
+      in: query
+      required: false
+      schema:
+        type: string
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: e.g. updated_at desc
+      schema:
+        type: string
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+    LimitParam:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10 
+    StartDateParam:
+      name: start_date
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+    EndDateParam:
+      name: end_date
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+  requestBodies:
+    CreateMemoRequest:
+      description: Memo creation payload
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - content
+            properties:
+              content:
+                type: string
+              tags:
+                type: array
+                items:
+                  type: string
+    CreateLearningAreaRequest:
+      description: Learning area creation payload
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - name
+              - description
+              - color_hex
+              - icon_emoji
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              color_hex:
+                type: string
+              icon_emoji:
+                type: string
+    CreateLearningItemRequest:
+      description: Learning item creation payload
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - area_id
+              - title
+              - notes
+              - subtitle
+              - started_date
+              - expected_completion
+            properties:
+              area_id:
+                type: integer
+                format: int64
+              title:
+                type: string
+              notes:
+                type: string
+              subtitle:
+                type: string
+              started_date:
+                type: string
+                format: date-time
+              expected_completion:
+                type: string
+                format: date-time
+    CreateTaskRequest:
+      description: Task creation payload
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - title
+              - description
+              - due_date
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              due_date:
+                type: string
+                format: date-time
+              tags:
+                type: array
+                items:
+                  type: string
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    MemosResponse:
+      description: A list of memos
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+              - pagination
+            properties:
+              data:
+                type: array 
+                items:
+                  $ref: "#/components/schemas/Memos"
+              pagination:
+                $ref: "#/components/schemas/Pagination"
+    CreateMemoResponse:
+      description: Memo created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: "#/components/schemas/GeneralUpsertOutputSerial" 
+    CreateLearningAreaResponse:
+      description: Learning area created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: "#/components/schemas/GeneralUpsertOutputSerial"
+    CreateLearningItemResponse:
+      description: Learning item created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: "#/components/schemas/GeneralUpsertOutputSerial"
+    GetLearningAreasResponse:
+      description: A list of learning areas
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LearningArea"
+    GetLearningItemResponse:
+      description: A list of learning items by area
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+              - pagination
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LearningItem"
+              pagination:
+                $ref: "#/components/schemas/Pagination"
+    GetLearningAreaResponse:
+      description: Learning area details
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: "#/components/schemas/LearningArea"
+    CreateTaskResponse:
+      description: Task created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: "#/components/schemas/GeneralUpsertOutputSerial"
+    GetTasksResponse:
+      description: A list of tasks
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array 
+                items:
+                  $ref: "#/components/schemas/Task"
+  schemas:
+    GeneralUpsertOutputSerial:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+    Pagination:
+      type: object
+      required:
+        - page
+        - limit
+        - total
+        - skip
+      properties:
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 100
+        skip:
+          type: integer
+          example: 0
+    Tag:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "work"
+    Memos:
+      type: object
+      required:
+        - id
+        - content
+        - updated_at
+        - tags
+      properties:
+        id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "This is a sample memo."
+        updated_at:
+          type: string
+          format: date-time
+        tags:
+          type: array
+          items:
+            type: string
+    LearningArea:
+      type: object
+      required:
+        - area_id
+        - name
+        - description
+        - color_hex
+        - icon_emoji
+        - archived
+        - created_at
+        - updated_at
+      properties:
+        area_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Mathematics"
+        description:
+          type: string
+          example: "All about numbers and equations."
+        color_hex:
+          type: string
+          example: "#FF5733"
+        icon_emoji:
+          type: string
+          example: "memos/<uuid>.png"
+        archived:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    LearningItem:
+      type: object
+      required:
+        - item_id
+        - area_id
+        - title
+        - subtitle
+        - notes
+        - started_at
+        - expected_completion
+        - created_at
+        - updated_at
+      properties:
+        item_id:
+          type: integer
+          example: 1
+        area_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Learn Algebra"
+        subtitle:
+          type: string
+          example: "Basics of Algebra"
+        notes:
+          type: string
+          example: "Focus on linear equations."
+        started_at:
+          type: string
+          format: date-time
+        expected_completion:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Task:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - due_date
+        - tags
+        - created_at
+        - updated_at
+        - status
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        status:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        completed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: An unexpected error occurred
