@@ -1,4 +1,5 @@
 import { gradientsStyles } from '@/lib/theme';
+import Link from 'next/link';
 import { FiHome } from 'react-icons/fi';
 
 export default function NotFound() {
@@ -21,13 +22,13 @@ export default function NotFound() {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           
-          <a
+          <Link
             href="/"
             className={`flex items-center justify-center gap-2 px-6 py-3 ${gradientsStyles.main} ${gradientsStyles.hovered} text-white rounded-lg shadow-md hover:shadow-lg transition-all`}
           >
             <FiHome size={20} />
             Home Page
-          </a>
+          </Link>
         </div>
         
         <div className="mt-12 text-sm text-gray-500">

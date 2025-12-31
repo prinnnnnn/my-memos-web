@@ -19,7 +19,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen sticky top-0">
       <div
         className="bg-slate-100 text-black transition-all duration-300 ease-in-out w-64 p-2"
       >
