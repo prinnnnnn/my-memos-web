@@ -1,7 +1,6 @@
 /* components */
 import CreateMemosModal from '@/components/memos/create-memos';
 import MemosCard from '@/components/memos/memos-card';
-import MemosView from '@/components/memos/memos-view'
 import Pagination from '@/components/pagination';
 import TagsFilter from '@/components/tags/tags-filter';
 import { Memos, MemosService } from '@/generated';
