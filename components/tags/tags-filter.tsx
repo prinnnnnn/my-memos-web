@@ -1,11 +1,17 @@
 "use client";
 
 import { TAGS } from '@/lib/constants';
+/* hooks */
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { FiX, FiFilter } from 'react-icons/fi';
 
-export default function TagFilter() {
+type TagFilterProps = {
+  createWidget?: React.ReactNode;
+};
 
+export default function TagFilter({ createWidget }: TagFilterProps) {
+  const router = useRouter();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
@@ -19,13 +25,13 @@ export default function TagFilter() {
   // Update URL when tags change
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    params.delete('tags');
     if (selectedTags.length > 0) {
-      params.set('tags', selectedTags.join(','));
-    } else {
-      params.delete('tags');
+      params.append('tags', selectedTags.join(','));
     }
-    const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
-    window.history.pushState({}, '', newUrl);
+    // const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+    // window.history.pushState({}, '', newUrl);
+    router.push(`/memos?${params.toString()}`);
   }, [selectedTags]);
 
   const toggleTag = (tagKey: string) => {
@@ -57,6 +63,7 @@ export default function TagFilter() {
               Clear all
             </button>
           )}
+          {createWidget && <>{createWidget}</>}
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">
@@ -68,8 +75,8 @@ export default function TagFilter() {
                 onClick={() => toggleTag(tag.key)}
                 className={`px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 transform hover:scale-105`}
                 style={{
-                  backgroundColor: isSelected ? tag.color : tag.colorSecondary,
-                  color: isSelected ? '#ffffff' : tag.color,
+                  backgroundColor: isSelected ? tag.color : '#f1f3f5',
+                  color: isSelected ? '#ffffff' : '#000000',
                 }}
               >
                 {tag.label}

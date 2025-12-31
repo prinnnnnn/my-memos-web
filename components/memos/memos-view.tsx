@@ -15,9 +15,9 @@ async function getMemos(
   try {
 
     const { data, pagination } = await MemosService.listMemos(
-      undefined,
-      1,
-      10,
+      tags.length > 0 ? tags : undefined,
+      page,
+      perpage,
     );
 
     return { data, pagination };
@@ -36,8 +36,14 @@ async function getMemos(
   }
 }
 
-async function MemosView() {
-  const { data, pagination } = await getMemos(1, 10, []);
+async function MemosView({
+  searchParams
+} : {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParamsResolved = await searchParams;
+  const tagsParam = searchParamsResolved.tags as string || "";
+  const { data, pagination } = await getMemos(1, 10, tagsParam.split(","));
 
   return (
     <div className="max-w-7xl mx-auto p-8 flex flex-col gap-6">

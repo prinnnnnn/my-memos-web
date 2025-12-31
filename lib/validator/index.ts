@@ -1,0 +1,1 @@
+export { createMemosSchema } from './memos';
