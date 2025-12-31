@@ -3,7 +3,7 @@ import CreateMemosModal from '@/components/memos/create-memos';
 import MemosCard from '@/components/memos/memos-card';
 import Pagination from '@/components/pagination';
 import TagsFilter from '@/components/tags/tags-filter';
-import { Memos, MemosService } from '@/generated';
+import { ApiError, Memos, MemosService } from '@/generated';
 
 import { gradientsStyles } from '@/lib/theme'
 import { FiFileText } from 'react-icons/fi';
@@ -25,9 +25,7 @@ async function getMemos(
     return { data, pagination };
 
   } catch (error) {
-    // check status 404
-    console.log(error)
-    if ((error as any).status !== 404) {
+    if ((error as ApiError).status !== 404) {
       console.error(`error fetching memos: `, error);
     } 
     return {

@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Modal from '@/components/ui/modal';
 import { useForm, useWatch } from 'react-hook-form';
-import Button from '../ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createMemosSchema } from '@/lib/validator';
 import { CreateMemosInput } from '@/lib/validator/memos';
@@ -161,8 +160,9 @@ const CreateMemosModal = () => {
               <button
                 type="submit"
                 className={`px-4 py-2 rounded-lg text-white font-bold ${gradientsStyles.main} ${gradientsStyles.hovered}`}
+                disabled={loading}
               >
-                Create Memo
+                {loading ? 'Creating...' : 'Create Memo'}
               </button>
             </div>
           </form>

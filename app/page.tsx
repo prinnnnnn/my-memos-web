@@ -1,6 +1,6 @@
 import DashboardCard from '@/components/landing/dashboard-card';
 import { gradientsStyles } from '@/lib/theme';
-import { FiCheckSquare, FiBook, FiFileText } from 'react-icons/fi';
+import { FiCheckSquare, FiFileText } from 'react-icons/fi';
 import { IoBookSharp } from "react-icons/io5";
 import { SiBookstack } from "react-icons/si";
 

@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 
 interface PaginationProps {

@@ -2,7 +2,7 @@
 
 import { TAGS } from '@/lib/constants';
 /* hooks */
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { FiX, FiFilter } from 'react-icons/fi';
 
@@ -20,7 +20,7 @@ export default function TagFilter({ createWidget }: TagFilterProps) {
     if (tagsParam) {
       setSelectedTags(tagsParam.split(','));
     }
-  }, []);
+  }, [router]);
 
   // Update URL when tags change
   useEffect(() => {

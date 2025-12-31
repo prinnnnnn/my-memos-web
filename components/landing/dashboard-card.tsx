@@ -1,5 +1,3 @@
-import { FiCheckSquare } from 'react-icons/fi'
-
 type Props = {
   title: string
   icon: React.ReactNode
