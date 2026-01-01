@@ -22,6 +22,10 @@ async function getMemos(
       perpage,
     );
 
+    data.sort((a, b) => {
+      return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+    });
+
     return { data, pagination };
 
   } catch (error) {
@@ -56,7 +60,7 @@ export async function MemosPage({
       </div>
       <div className="max-w-7xl mx-auto p-8 flex flex-col gap-6">
 
-      <TagsFilter createWidget={<CreateMemosModal />} />
+      <TagsFilter domain="memos" createWidget={<CreateMemosModal />} />
 
       {data.length === 0 ? (
         <div className="text-center py-12 text-gray-500">

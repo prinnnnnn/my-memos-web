@@ -7,10 +7,11 @@ import { useState, useEffect } from 'react';
 import { FiX, FiFilter } from 'react-icons/fi';
 
 type TagFilterProps = {
+  domain: string;
   createWidget?: React.ReactNode;
 };
 
-export default function TagFilter({ createWidget }: TagFilterProps) {
+export default function TagFilter({ domain, createWidget }: TagFilterProps) {
   const router = useRouter();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
@@ -31,7 +32,7 @@ export default function TagFilter({ createWidget }: TagFilterProps) {
     }
     // const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
     // window.history.pushState({}, '', newUrl);
-    router.push(`/memos?${params.toString()}`);
+    router.push(`/${domain}?${params.toString()}`);
   }, [selectedTags]);
 
   const toggleTag = (tagKey: string) => {
@@ -55,15 +56,18 @@ export default function TagFilter({ createWidget }: TagFilterProps) {
             <FiFilter className="text-gray-600" size={24} />
             <h2 className="text-2xl font-bold text-gray-800">Filter by Tags</h2>
           </div>
-          {selectedTags.length > 0 && (
-            <button
-              onClick={clearAllTags}
-              className="text-sm text-gray-600 hover:text-gray-800 underline"
-            >
-              Clear all
-            </button>
-          )}
-          {createWidget && <>{createWidget}</>}
+          <div className='flex flex-row items-center gap-4'>
+            {selectedTags.length > 0 && (
+              <button
+                onClick={clearAllTags}
+                className="text-sm text-gray-600 hover:text-gray-800 underline"
+              >
+                Clear all
+              </button>
+            )}
+            {createWidget && <>{createWidget}</>}
+          </div>
+
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">
