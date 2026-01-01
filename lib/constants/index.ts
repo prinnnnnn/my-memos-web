@@ -7,3 +7,9 @@ export const TAGS = [
     { key: "finance", name: "finance", label: "Finance", color: "#ef476f", colorSecondary: "#f49cbb" },
     { key: "health", name: "health", label: "Health", color: "#38b000", colorSecondary: "#95d5b2" },
 ]
+
+export const TASKS_STATUS = {
+    todo: { key: "To Do", label: "To Do", color: "#ffba08" },
+    inProgress: { key: "In Progress", label: "In Progress", color: "#3a86ff" },
+    done: { key: "Done", label: "Done", color: "#06d6a0" },
+}

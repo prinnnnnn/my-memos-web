@@ -23,15 +23,12 @@ export default function TagFilter({ domain, createWidget }: TagFilterProps) {
     }
   }, [router]);
 
-  // Update URL when tags change
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.delete('tags');
     if (selectedTags.length > 0) {
       params.append('tags', selectedTags.join(','));
     }
-    // const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
-    // window.history.pushState({}, '', newUrl);
     router.push(`/${domain}?${params.toString()}`);
   }, [selectedTags]);
 

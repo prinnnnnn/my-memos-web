@@ -1,5 +1,5 @@
 import { TaskStatus, LearningStatus } from "@/lib/types";
-export { formatDate, formatDateTime } from "./date";
+export { formatDate, formatDateTime, formatFutureDate, isPastDate } from "./date";
 
 export const getStatusColor = (status: TaskStatus | LearningStatus) => {
   switch (status) {
