@@ -42,7 +42,7 @@ export default function TaskCreate() {
       setLoading(true);
       await TasksService.createTask({
         ...data,
-        ...(data.due_date !== '' && { due_date: new Date(data.due_date).toISOString() }),
+        due_date: new Date(data.due_date).toISOString(),
       });
       setShowCreateModal(false);
 
