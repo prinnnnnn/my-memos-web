@@ -41,12 +41,6 @@ export default async function LearningsAreaPage() {
           {data.map(area => (
             <AreaCard key={`learning-area-${area.area_id}`} args={area} />
           ))}
-          {data.map(area => (
-            <AreaCard key={`learning-area-${area.area_id}`} args={area} />
-          ))}
-          {data.map(area => (
-            <AreaCard key={`learning-area-${area.area_id}`} args={area} />
-          ))}
         </div>
       </div>
 
