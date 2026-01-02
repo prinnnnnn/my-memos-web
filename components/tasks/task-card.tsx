@@ -4,7 +4,7 @@ import TagBadge from '../tags/tag-badge'
 import { formatDate, formatFutureDate } from '@/lib/utils'
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { TASKS_STATUS } from '@/lib/constants';
-
+import ReactMarkdown from 'react-markdown';
 import { CompleteTaskButton, StartTaskButton } from './status-button';
 
 type TaskCardProps = {
@@ -39,7 +39,9 @@ const TaskCard = ({ args }: TaskCardProps) => {
             </div>
 
             {/* description */}
-            <p className="text-sm text-gray-300">{args.description}</p>
+            <p className="text-sm text-gray-300">
+              {args.description}
+            </p>
           </div>
 
 
