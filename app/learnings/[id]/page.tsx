@@ -1,19 +1,17 @@
 import LearningItemCard from "@/components/learnings/item-card";
+import Pagination from "@/components/pagination";
 import { ApiError, LearningItem, LearningsService } from "@/generated";
 import { LEARNING_ITEM_STATUS } from "@/lib/constants";
 import { gradientsStyles } from "@/lib/theme";
 
 const fetchPageData = async (id: number, page?: number, limit?: number) => {
   try {
-    const areaRes = await LearningsService.getLearningAreaById(id);
-    const itemsRes = await LearningsService.getLearningItemsByArea(
+    const { data: areaData } = await LearningsService.getLearningAreaById(id);
+    const { data: itemsData, pagination } = await LearningsService.getLearningItemsByArea(
       id,
       page,
       limit,
     );
-
-    const { data: areaData } = areaRes;
-    const { data: itemsData } = itemsRes;
 
     itemsData.sort((a, b) => {
       return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
@@ -25,6 +23,7 @@ const fetchPageData = async (id: number, page?: number, limit?: number) => {
         icon_emoji: `${process.env.OBJECTS_ENGINE_URL}/download/${areaData.icon_emoji}`,
       },
       items: itemsData,
+      pagination,
     };
   } catch (error) {
     if ((error as ApiError).status !== 404) {
@@ -56,7 +55,7 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
   const searchParamsResolved = await searchParams;
   const page = parseInt(searchParamsResolved.page as string || '1');
   const limit = parseInt(searchParamsResolved.limit as string || '20');
-  const { area, items } = await fetchPageData(parseInt(paramsResolved.id), page, limit);
+  const { area, items, pagination } = await fetchPageData(parseInt(paramsResolved.id), page, limit);
 
   const notStartedItems = items.filter(item => item.status === LEARNING_ITEM_STATUS.notStarted.key);
   const inProgressItems = items.filter(item => item.status === LEARNING_ITEM_STATUS.inProgress.key);
@@ -150,6 +149,14 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
           />
         ))}
       </div>
+
+      <Pagination
+        currentPage={page}
+        pageSize={limit}
+        total={pagination.total}
+        totalPages={Math.ceil(pagination.total / limit)}
+        domain="learning items"
+      />
 
       
 
