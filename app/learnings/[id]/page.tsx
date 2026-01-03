@@ -1,13 +1,21 @@
 import LearningItemCard from "@/components/learnings/item-card";
 import ItemCreate from "@/components/learnings/item-create";
 import Pagination from "@/components/pagination";
-import { ApiError, LearningItem, LearningsService } from "@/generated";
+import { ApiError, LearningArea, LearningItem, LearningsService } from "@/generated";
 import { LEARNING_ITEM_STATUS } from "@/lib/constants";
 import { gradientsStyles } from "@/lib/theme";
 
 const fetchPageData = async (id: number, page?: number, limit?: number) => {
+
+  let area: LearningArea | null = null;
+
   try {
     const { data: areaData } = await LearningsService.getLearningAreaById(id);
+    area = {
+      ...areaData,
+      icon_emoji: `${process.env.OBJECTS_ENGINE_URL}/download/${areaData.icon_emoji}`,
+    };
+
     const { data: itemsData, pagination } = await LearningsService.getLearningItemsByArea(
       id,
       page,
@@ -19,10 +27,7 @@ const fetchPageData = async (id: number, page?: number, limit?: number) => {
     });
 
     return {
-      area: {
-        ...areaData,
-        icon_emoji: `${process.env.OBJECTS_ENGINE_URL}/download/${areaData.icon_emoji}`,
-      },
+      area,
       items: itemsData,
       pagination,
     };
@@ -31,7 +36,7 @@ const fetchPageData = async (id: number, page?: number, limit?: number) => {
       console.error(`error fetching memos: `, error);
     }
     return {
-      area: null,
+      area: area,
       items: [] as LearningItem[],
       pagination: {
         page: 1,
