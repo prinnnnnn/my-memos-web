@@ -6,9 +6,10 @@ type TextFieldProps = {
   label: string;
   register: UseFormRegisterReturn<any>;
   error: FieldError;
+  disabled?: boolean;
 }
 
-export const TextField = ({ label, placeholder, register, error }: TextFieldProps) => {
+export const TextField = ({ label, placeholder, register, error, disabled = false }: TextFieldProps) => {
   return (
     <>
       <label className="block text-lg text-slate-900 font-bold mb-1">{label}</label>
@@ -17,6 +18,7 @@ export const TextField = ({ label, placeholder, register, error }: TextFieldProp
         type="text"
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-slate-900"
         placeholder={placeholder}
+        disabled={disabled}
       />
       {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
     </>

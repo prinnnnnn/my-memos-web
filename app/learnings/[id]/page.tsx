@@ -1,4 +1,5 @@
 import LearningItemCard from "@/components/learnings/item-card";
+import ItemCreate from "@/components/learnings/item-create";
 import Pagination from "@/components/pagination";
 import { ApiError, LearningItem, LearningsService } from "@/generated";
 import { LEARNING_ITEM_STATUS } from "@/lib/constants";
@@ -106,9 +107,9 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
           <p className="text-gray-500">No learning items found.</p>
         )}
         {inProgressItems.map((item) => (
-          <LearningItemCard 
-            key={item.item_id} 
-            args={item} 
+          <LearningItemCard
+            key={item.item_id}
+            args={item}
             area={area}
           />
         ))}
@@ -116,17 +117,21 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
 
       {/* todo learning items */}
       <div className="p-3 flex flex-col gap-4 bg-gray-100 rounded-lg mt-6">
-        <h2 className="text-2xl font-bold text-gray-500 mb-1 flex flex-row items-center">
-          {LEARNING_ITEM_STATUS.notStarted.label}
-          <span className="text-xl font-semibold text-gray-600 ml-2 bg-gray-300 rounded-2xl px-2">{numNotStarted}</span>
-        </h2>
+        <div className="flex flex-row justify-between items-center">
+          <h2 className="text-2xl font-bold text-gray-500 mb-1 flex flex-row items-center">
+            {LEARNING_ITEM_STATUS.notStarted.label}
+            <span className="text-xl font-semibold text-gray-600 ml-2 bg-gray-300 rounded-2xl px-2">{numNotStarted}</span>
+          </h2>
+          <ItemCreate area={area} />
+        </div>
+
         {notStartedItems.length === 0 && (
           <p className="text-gray-500">No learning items found.</p>
         )}
         {notStartedItems.map((item) => (
-          <LearningItemCard 
-            key={item.item_id} 
-            args={item} 
+          <LearningItemCard
+            key={item.item_id}
+            args={item}
             area={area}
           />
         ))}
@@ -142,9 +147,9 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
           <p className="text-gray-500">No learning items found.</p>
         )}
         {completedItems.map((item) => (
-          <LearningItemCard 
-            key={item.item_id} 
-            args={item} 
+          <LearningItemCard
+            key={item.item_id}
+            args={item}
             area={area}
           />
         ))}
@@ -157,8 +162,6 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
         totalPages={Math.ceil(pagination.total / limit)}
         domain="learning items"
       />
-
-      
 
     </div>
   )
