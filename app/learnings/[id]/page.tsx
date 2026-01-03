@@ -1,3 +1,4 @@
+import LearningItemCard from "@/components/learnings/item-card";
 import { ApiError, LearningItem, LearningsService } from "@/generated";
 import { gradientsStyles } from "@/lib/theme";
 
@@ -56,6 +57,8 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
   const limit = parseInt(searchParamsResolved.limit as string || '20');
   const { area, items } = await fetchPageData(parseInt(paramsResolved.id), page, limit);
 
+  // const numTodo = items.filter(item => item.).length;
+
   if (!area) {
     return (
       <div className="w-full mx-auto px-4 py-8 bg-white">
@@ -80,7 +83,21 @@ export default async function LearningAreaPage({ params, searchParams }: PagePro
             <p className="text-lg text-gray-700 font-semibold">{area.description}</p>
           </div>
         </div>
+      </div>
 
+      {/* todo learning items */}
+      <div className="p-3 flex flex-col gap-4 bg-gray-100 rounded-lg mt-6">
+        <h2 className="text-2xl font-bold text-gray-500 mb-1">To Do</h2>
+        {items.length === 0 && (
+          <p className="text-gray-500">No learning items found.</p>
+        )}
+        {items.map((item) => (
+          <LearningItemCard 
+            key={item.item_id} 
+            args={item} 
+            area={area}
+          />
+        ))}
       </div>
 
     </div>

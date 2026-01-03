@@ -599,6 +599,7 @@ components:
         - notes
         - started_at
         - expected_completion
+        - status
         - created_at
         - updated_at
       properties:
@@ -626,6 +627,9 @@ components:
         completed_at:
           type: string
           format: date-time
+        status:
+          type: string
+          example: "In Progress"
         created_at:
           type: string
           format: date-time

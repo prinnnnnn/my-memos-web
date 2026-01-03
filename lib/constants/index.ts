@@ -13,3 +13,9 @@ export const TASKS_STATUS = {
     inProgress: { key: "In Progress", label: "In Progress", color: "#3a86ff" },
     done: { key: "Done", label: "Done", color: "#06d6a0" },
 }
+
+export const LEARNING_ITEM_STATUS = {
+    notStarted: { key: "Not Started", label: "Not Started", color: "#ffba08" },
+    inProgress: { key: "In Progress", label: "In Progress", color: "#3a86ff" },
+    completed: { key: "Completed", label: "Completed", color: "#06d6a0" },
+}

@@ -11,6 +11,7 @@ export type LearningItem = {
     started_at: string;
     expected_completion: string;
     completed_at?: string;
+    status: string;
     created_at: string;
     updated_at: string;
 };
