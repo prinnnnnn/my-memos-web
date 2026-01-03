@@ -1,6 +1,6 @@
 "use client";
 
-import { LearningsService, TasksService } from "@/generated";
+import { LearningsService } from "@/generated";
 
 /* icons */
 import { SiStreamrunners } from "react-icons/si";
@@ -9,7 +9,6 @@ import { IoCheckmarkDoneCircle } from "react-icons/io5";
 /* hooks */
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { gradientsStyles } from "@/lib/theme";
 
 const getGradientStyle = (variant: "start" | "complete") => {
   switch (variant) {
