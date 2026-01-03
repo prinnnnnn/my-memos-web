@@ -4,23 +4,12 @@ import TagBadge from '../tags/tag-badge'
 import { formatDate, formatFutureDate } from '@/lib/utils'
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { TASKS_STATUS } from '@/lib/constants';
-import ReactMarkdown from 'react-markdown';
 import { CompleteTaskButton, StartTaskButton } from './status-button';
+import { IoCheckmarkDoneCircle } from 'react-icons/io5';
 
 type TaskCardProps = {
   args: Task
 }
-/*
-
-1. button to open task details
-- display task title, description, tags, updated_at
-- styled card with hover effect
-
-2. button to send to in-progress
-
-3. button to mark as done
-
-*/
 
 const TaskCard = ({ args }: TaskCardProps) => {
   return (
@@ -56,7 +45,14 @@ const TaskCard = ({ args }: TaskCardProps) => {
                   </p>
                 </>
               )}
-              
+              {args.status === TASKS_STATUS.done.key && args.completed_at && (
+                <>
+                  <IoCheckmarkDoneCircle />
+                  <p className="text-sm text-gray-300 font-semibold items-center">
+                    Completed on {formatDate(args.completed_at)}
+                  </p>
+                </>
+              )}
             </div>
 
             {/* tags */}
