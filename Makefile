@@ -8,4 +8,7 @@ find-unused:
 	@npx ts-prune | grep --color=auto default
 	@echo "Unused files check complete."
 
+build-images:
+	@docker buildx build --platform linux/amd64 -t prinnnnnn/memos-dashboard:$(TAG) . --load
+
 .PHONY: gen find-unused
