@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import AreaCard from "@/components/learnings/area-card";
 import AreaCreate from "@/components/learnings/area-create";
 import { ApiError, LearningArea, LearningsService } from "@/generated";

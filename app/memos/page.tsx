@@ -31,7 +31,7 @@ async function getMemos(
   } catch (error) {
     if ((error as ApiError).status !== 404) {
       console.error(`error fetching memos: `, error);
-    } 
+    }
     return {
       data: [] as Memos[],
       pagination: {
